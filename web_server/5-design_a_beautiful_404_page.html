@@ -1,60 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>404 — Ceci n'est pas une page</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      background: radial-gradient(circle at top, #1e293b, #090d16 70%);
-      color: #f8fafc;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      padding: 2rem;
-      text-align: center;
-    }
-    .card {
-      max-width: 540px;
-      width: 100%;
-      background: rgba(15, 23, 42, 0.88);
-      border: 1px solid rgba(148, 163, 184, 0.25);
-      border-radius: 20px;
-      padding: 2.5rem 2rem;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
-    }
-    .code {
-      font-size: 4.5rem;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      background: linear-gradient(135deg, #38bdf8, #a855f7, #f472b6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1;
-      margin-bottom: 1rem;
-    }
-    h1 { font-size: 1.5rem; margin-bottom: 0.75rem; }
-    p { color: #cbd5e1; line-height: 1.6; margin-bottom: 1.5rem; }
-    .btn {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      border-radius: 999px;
-      background: #38bdf8;
-      color: #090d16;
-      font-weight: 700;
-      text-decoration: none;
-    }
-    .btn:hover { background: #7dd3fc; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 - Ceci n'est pas une page</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; text-align: center; color: #f4f1ea; font-family: Georgia, "Times New Roman", serif; background: radial-gradient(circle at 25% 15%, #323862, #0d0e1b 70%); }
+.card { max-width: 560px; }
+.code { margin: 0; font-size: clamp(96px, 24vw, 190px); font-weight: 700; line-height: 1; letter-spacing: 8px; color: transparent; background: linear-gradient(90deg, #ffb347, #ff5e62, #a770ef); -webkit-background-clip: text; background-clip: text; animation: float 4s ease-in-out infinite; }
+.sheet { width: 150px; height: 190px; margin: 8px auto 18px; display: block; animation: tilt 6s ease-in-out infinite; }
+h1 { margin: 0 0 10px; font-size: clamp(26px, 6vw, 40px); font-style: italic; font-weight: 400; }
+p { margin: 0 0 26px; color: #c9c5d6; font-size: 18px; line-height: 1.5; }
+a { display: inline-block; padding: 12px 28px; border-radius: 999px; color: #0d0e1b; background: #f4f1ea; font-family: Arial, sans-serif; font-weight: 700; text-decoration: none; transition: transform .2s; }
+a:hover { transform: translateY(-3px) scale(1.04); }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes tilt { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+@media (prefers-reduced-motion: reduce) { .code, .sheet { animation: none; } }
+</style>
 </head>
 <body>
-  <main class="card">
-    <div class="code">404</div>
-    <h1>Ceci n'est pas une page</h1>
-    <p>This route does not exist on the server. Head back to the main page and try again.</p>
-    <a class="btn" href="/">Back to Home</a>
-  </main>
+<main class="card">
+<p class="code">404</p>
+<svg class="sheet" viewBox="0 0 150 190" role="img" aria-label="Une page vide">
+<path d="M12 8h92l34 34v140H12z" fill="#f4f1ea" stroke="#ffb347" stroke-width="4" stroke-dasharray="8 6"/>
+<path d="M104 8v34h34z" fill="#d9d4c5"/>
+<text x="75" y="120" text-anchor="middle" font-size="84" font-family="Georgia, serif" fill="#a770ef">?</text>
+</svg>
+<h1>Ceci n'est pas une page</h1>
+<p>(This is not a page.) What you were looking for has wandered off, but this error is very real.</p>
+<a href="/">Retour &agrave; l'accueil</a>
+</main>
 </body>
 </html>
