@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Configure Nginx to return the hostname in the X-Served-By header
+
+set -e
+
+apt-get update -y
+apt-get install -y nginx
+
+cat > /etc/nginx/conf.d/0-custom-header.conf <<'EOF'
+add_header X-Served-By $hostname always;
+EOF
+
+nginx -t
+systemctl restart nginx
