@@ -7,9 +7,10 @@ apt-get update -y
 apt-get install -y nginx
 
 DEFAULT_SITE="/etc/nginx/sites-available/default"
+NGINX_HOSTNAME="\$hostname"
 
 if ! grep -q 'add_header X-Served-By' "$DEFAULT_SITE"; then
-    sed -i '/server[[:space:]]*{/a\    add_header X-Served-By $hostname always;' "$DEFAULT_SITE"
+    sed -i "/server[[:space:]]*{/a\\    add_header X-Served-By ${NGINX_HOSTNAME} always;" "$DEFAULT_SITE"
 fi
 
 rm -f /etc/nginx/conf.d/0-custom-header.conf
