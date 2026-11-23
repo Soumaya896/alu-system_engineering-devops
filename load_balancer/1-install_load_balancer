@@ -1,37 +1,30 @@
 #!/usr/bin/env bash
-# Install and configure HAProxy to distribute traffic between web-01 and web-02
+# Installs HAProxy and load balances web-01 and web-02 using roundrobin
 
-set -e
+SUDO=""
+[ "$(id -u)" -ne 0 ] && SUDO="sudo"
 
-apt-get update -y
-apt-get install -y haproxy
+$SUDO apt-get update -y
+$SUDO apt-get install -y haproxy
 
-cat > /etc/haproxy/haproxy.cfg <<'EOF'
-global
-    log /dev/log local0
-    log /dev/log local1 notice
-    daemon
+if ! grep -q "web-backend" /etc/haproxy/haproxy.cfg; then
+    $SUDO tee -a /etc/haproxy/haproxy.cfg > /dev/null <<'EOF'
 
-defaults
-    log global
-    mode http
-    option httplog
-    option dontlognull
-    timeout connect 5000
-    timeout client 50000
-    timeout server 50000
-
-frontend http_front
+frontend http-in
     bind *:80
-    default_backend web_servers
+    mode http
+    default_backend web-backend
 
-backend web_servers
+backend web-backend
+    mode http
     balance roundrobin
-    option httpchk GET /
-    server web-01 18.171.55.145:80 check
-    server web-02 35.178.40.132:80 check
+    server 7408-web-01 18.171.55.145:80 check
+    server 7408-web-02 35.178.40.132:80 check
 EOF
+fi
 
-haproxy -c -f /etc/haproxy/haproxy.cfg
-systemctl enable haproxy
-systemctl restart haproxy
+# Enable the init script on older Ubuntu versions (file may not exist)
+[ -f /etc/default/haproxy ] && $SUDO sed -i 's/^ENABLED=.*/ENABLED=1/' /etc/default/haproxy
+
+$SUDO haproxy -c -f /etc/haproxy/haproxy.cfg
+$SUDO service haproxy restart

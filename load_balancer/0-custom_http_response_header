@@ -8,7 +8,8 @@ $SUDO apt-get update -y
 $SUDO apt-get install -y nginx
 
 if ! grep -q "X-Served-By" /etc/nginx/sites-available/default; then
-    $SUDO sed -i '/^\s*server_name _;/a\    add_header X-Served-By $hostname;' /etc/nginx/sites-available/default
+    $SUDO sed -i '/^\s*server_name _;/a\    add_header X-Served-By $hostname always;' /etc/nginx/sites-available/default
 fi
 
+$SUDO nginx -t
 $SUDO service nginx restart
