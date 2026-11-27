@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-# Installs nginx and serves a page containing "Holberton School" on port 80
-apt-get -y update
-apt-get -y install nginx
-sed -i '/listen \[::\]:80/d' /etc/nginx/sites-available/default
-echo "Holberton School" > /var/www/html/index.html
+# Installs Nginx, serves Holberton School on port 80, and starts the service
+apt-get update -y
+apt-get install -y nginx
+printf 'Holberton School\n' > /var/www/html/index.html
 service nginx restart
